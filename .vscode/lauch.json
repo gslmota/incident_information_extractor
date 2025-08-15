@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug FastAPI",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/debug_scripts/run_local.py",
+            "console": "integratedTerminal",
+            "env": {
+                "OLLAMA_BASE_URL": "http://localhost:11434",
+                "MODEL_NAME": "tinyllama"
+            }
+        }
+    ]
+}
