@@ -12,7 +12,7 @@ RUN poetry config virtualenvs.create false \
 
 COPY src/ ./src/
 
-RUN poetry install --only-root
+# RUN poetry install --only-root
 
 EXPOSE 8000
 

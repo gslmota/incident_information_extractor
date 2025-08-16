@@ -5,7 +5,9 @@ description = "Api de extração de informações de incidentes com LLM local."
 authors = [
     {name = "gslmota",email = "gabrielsavio81@gmail.com"}
 ]
-packages = [{include = "src"}]
+
+[tool.poetry]
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
