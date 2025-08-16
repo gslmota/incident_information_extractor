@@ -1,0 +1,56 @@
+{
+    "python.defaultInterpreterPath": "./.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    
+    // Configurações de formatação
+    "python.formatting.provider": "black",
+    "python.sortImports.args": ["--profile", "black"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+    
+    // Configurações de linting
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintEnabled": false,
+    
+    // Configurações de testes
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    
+    // Configurações do editor
+    "editor.rulers": [88],
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        ".pytest_cache": true,
+        ".mypy_cache": true,
+        "htmlcov": true,
+        ".coverage": true
+    },
+    
+    // Configurações de debug
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "strict",
+    
+    // Configurações específicas para FastAPI
+    "files.associations": {
+        "*.py": "python"
+    },
+    
+    // Terminal
+    "terminal.integrated.defaultProfile.linux": "bash",
+    
+    // Configurações de autocomplete
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.autoSearchPaths": true,
+    
+    // Configurações de docstrings
+    "autoDocstring.docstringFormat": "google",
+    "autoDocstring.startOnNewLine": true
+}
