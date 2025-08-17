@@ -245,22 +245,6 @@ exit
 - Após o primeiro download, não é necessário baixar novamente, pois ele fica salvo no volume
 - Foi utilizada a versão Python 3.12-slim. Em produção, seria recomendável usar uma versão Alpine por ser menor e mais segura, porém devido às restrições de rede que eu tinha para build, não foi possível alterar.
 
-### Executando Testes
-
-O projeto possui uma suite completa de testes unitários e de integração:
-
-```bash
-
-# Executar todos os testes
-pytest tests/ -v
-
-# Executar apenas unitários
-pytest tests/unit/ -v
-
-# Executar apenas de integração  
-pytest tests/integration/ -v
-
-```
 
 ### Testando a API
 
@@ -278,3 +262,19 @@ curl -X POST "http://localhost:8000/extract" \
      -d '{"text": "Anteontem, às 5h, no escritório de Pernambuco, houve uma falha no servidor principal que afetou o sistema de notas por cinco horas."}'
 ```
 
+### Executando Testes
+
+O projeto possui uma suite completa de testes unitários e de integração:
+
+```bash
+
+# Executar todos os testes
+pytest tests/ -v
+
+# Executar apenas unitários
+pytest tests/unit/ -v
+
+# Executar apenas de integração  
+pytest tests/integration/ -v
+
+```
