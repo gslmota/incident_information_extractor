@@ -11,7 +11,7 @@ class ExtractionPrompt:
 
     @classmethod
     def default(cls) -> "ExtractionPrompt":
-      prompt = """
+        prompt = """
         You are an incident analysis specialist. Extract the following information from the provided text and return ONLY a valid JSON with the requested fields:
         - data_ocorrencia: date and time of the incident in the format "YYYY-MM-DD HH:MM" (null if not mentioned)
         - local: location where the incident occurred
@@ -33,7 +33,7 @@ class ExtractionPrompt:
         JSON response:
       """
 
-      return cls(content=prompt)
+        return cls(content=prompt)
 
 
 @dataclass(frozen=True)
