@@ -19,9 +19,7 @@ class OllamaService(LLMServiceInterface):
         self._client = httpx.AsyncClient(timeout=30.0)
 
     async def _ensure_model_ready(self) -> None:
-        """Garante que o modelo está disponível."""
         try:
-            # Verificar modelos disponíveis
             list_url = f"{self._base_url}/api/tags"
             response = await self._client.get(list_url)
             response.raise_for_status()
@@ -34,7 +32,6 @@ class OllamaService(LLMServiceInterface):
             if any(self._model in model for model in available_models):
                 return
 
-            # Baixar modelo se não existir
             logger.info("Downloading model", model=self._model)
             pull_url = f"{self._base_url}/api/pull"
             pull_response = await self._client.post(

@@ -110,6 +110,108 @@ Se necessário, você pode pular o hook temporariamente:
 git commit --no-verify
 ```
 
+O projeto também possui um workflow do GitHub Actions que executa verificações automáticas de código. Atualmente, apenas executa linting e testes, sem configuração para validar pull requests.
+
 ## Arquitetura
 
 O projeto segue os princípios de Clean Architecture
+
+## Como Executar o Projeto
+
+### Execução Local (Desenvolvimento)
+
+Para rodar o projeto localmente, você precisa:
+
+1. **Instalar e configurar o Ollama:**
+   ```bash
+   # Instalar Ollama (Linux/macOS)
+   curl -fsSL https://ollama.ai/install.sh | sh
+   
+   # Iniciar o serviço Ollama
+   ollama serve
+   
+   # Em outro terminal, baixar o modelo tinyllama
+   ollama pull tinyllama
+   ```
+
+2. **Instalar dependências do projeto:**
+   ```bash
+   # Instalar Poetry (se não tiver)
+   pip install poetry
+   
+   # Instalar dependências
+   poetry install
+   ```
+
+3. **Executar a API:**
+   ```bash
+   # Rodar via comando
+   poetry run uvicorn src.presentation.api:app --reload --host localhost --port 8000
+   ```
+   
+   Ou usar o **debug do VS Code** com a configuração de launch.json
+4. **Acessar a aplicação:**
+   - API: http://localhost:8000
+   - Documentação: http://localhost:8000/docs
+
+### Execução com Docker (Produção)
+
+#### Abordagem Padrão
+
+```bash
+# Subir todos os serviços
+docker-compose up --build
+
+# A API estará disponível em http://localhost:8000
+# O modelo será baixado automaticamente na primeira requisição
+```
+
+#### Abordagem Alternativa (Conexão Limitada)
+
+Devido a limitações de internet durante o desenvolvimento, utilizei uma estratégia alternativa, pois estava na fazenda com conexão de 10mb.
+
+```bash
+# 1. Subir os serviços
+docker-compose up --build
+
+# 2. Baixar o modelo manualmente no container (recomendado para conexão limitada)
+docker exec -it ollama ollama pull tinyllama
+
+# 3. A API já estará pronta para uso!
+```
+
+**Alternativa**: Deixar a API baixar automaticamente na primeira requisição, mas pode demorar mais com conexão lenta.
+
+**Como baixar modelo manualmente no container:**
+```bash
+# Entrar no container Ollama
+docker exec -it ollama bash
+
+# Dentro do container, baixar o modelo
+ollama pull tinyllama
+
+# Verificar se o modelo foi baixado
+ollama list
+
+# Sair do container
+exit
+```
+
+**Observações importantes:**
+- Esta não é a abordagem mais eficiente para produção
+- Em produção, o modelo deveria estar pré-carregado na imagem
+- O modelo fica persistido no volume Docker entre reinicializações
+- Após o primeiro download, não é necessário baixar novamente, pois ele fica salvo no volume
+- Foi utilizada a versão Python 3.12-slim. Em produção, seria recomendável usar uma versão Alpine por ser menor e mais segura, porém devido às restrições de rede que eu tinha para build, não foi possível alterar.
+
+### Testando a API
+
+```bash
+# Teste de saúde
+curl http://localhost:8000/health
+
+# Exemplo de extração de incidente
+curl -X POST "http://localhost:8000/extract" \
+     -H "Content-Type: application/json" \
+     -d '{"text": "Ocorreu um incidente ontem às 14:30 no servidor de produção. O sistema ficou indisponível por 2 horas devido a falha no banco de dados."}'
+```
