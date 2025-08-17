@@ -1,8 +1,6 @@
-import pytest
 from datetime import datetime, timedelta
 
-from src.infrastructure.text_preprocessor import TextPreprocessor
-
+from src.infrastructure.processors import TextPreprocessor
 
 class TestTextPreprocessor:
     def setup_method(self) -> None:

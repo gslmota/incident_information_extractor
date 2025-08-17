@@ -1,6 +1,5 @@
-import pytest
 from datetime import datetime
-from src.infrastructure.text_postprocessor import TextPostprocessor
+from src.infrastructure.processors import TextPostprocessor
 
 
 class TestTextPostprocessor:

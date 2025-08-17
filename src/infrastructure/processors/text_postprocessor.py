@@ -2,8 +2,8 @@ import difflib
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from ..application.interfaces import TextPostprocessorInterface
-from ..domain.entities import IncidentInfo
+from ...application.interfaces import TextPostprocessorInterface
+from ...domain.entities import IncidentInfo
 
 
 class TextPostprocessor(TextPostprocessorInterface):

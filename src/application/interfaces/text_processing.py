@@ -1,13 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Dict
 
-from ..domain.entities import IncidentInfo
-
-
-class LLMServiceInterface(ABC):
-    @abstractmethod
-    async def generate_response(self, prompt: str) -> str:
-        pass
+from ...domain.entities import IncidentInfo
 
 
 class TextPreprocessorInterface(ABC):

@@ -2,7 +2,7 @@ import re
 from datetime import datetime, timedelta
 from typing import Dict
 
-from ..application.interfaces import TextPreprocessorInterface
+from ...application.interfaces import TextPreprocessorInterface
 
 
 class TextPreprocessor(TextPreprocessorInterface):

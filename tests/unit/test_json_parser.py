@@ -1,6 +1,6 @@
 import pytest
 
-from src.infrastructure.json_parser import JsonParser
+from src.infrastructure.parsers import JsonParser
 from src.domain.exceptions import InvalidJsonResponseError
 
 

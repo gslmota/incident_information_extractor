@@ -4,8 +4,8 @@ from typing import cast
 import httpx
 import structlog
 
-from ..application.interfaces import LLMServiceInterface
-from ..domain.exceptions import LLMServiceError
+from ...application.interfaces import LLMServiceInterface
+from ...domain.exceptions import LLMServiceError
 
 logger = structlog.get_logger()
 
