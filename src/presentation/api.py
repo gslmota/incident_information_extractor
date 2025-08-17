@@ -133,4 +133,3 @@ async def extract_incident_info(
 )
 async def health_check() -> Dict[str, str]:
     return {"status": "healthy", "message": "Incident Extractor API is running"}
-

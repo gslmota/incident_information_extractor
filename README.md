@@ -31,6 +31,85 @@ A API extrai as seguintes informações de um texto descrevendo um incidente:
 - **Pydantic**: Validação de dados
 - **structlog**: Logging estruturado
 
+## Desenvolvimento
+
+### Qualidade de Código
+
+O projeto utiliza ferramentas de qualidade de código que são executadas automaticamente:
+
+#### Git Pre-commit Hook
+
+Um hook de pré-commit está configurado para garantir a qualidade do código antes de cada commit:
+
+- **Black**: Formatação automática do código
+- **MyPy**: Verificação de tipos estática
+
+##### Configuração do Hook
+
+Para configurar o pre-commit hook em um novo clone do projeto:
+
+```bash
+git clone https://github.com/gslmota/incident_information_extractor.git
+cd incident_information_extractor
+
+# Instale as dependências
+poetry install
+
+# Configure o pre-commit hook
+cat > .git/hooks/pre-commit << 'EOF'
+#!/bin/bash
+
+# Formatar código com black
+echo "Formatando código com black..."
+poetry run black src
+
+# Verificar tipos com mypy
+echo "Verificando tipos com mypy..."
+poetry run mypy src
+
+# Se mypy falhar, cancelar commit
+if [ $? -ne 0 ]; then
+    echo "Erro no mypy. Commit cancelado."
+    exit 1
+fi
+
+echo "Pré-commit executado com sucesso!"
+EOF
+
+# Torne o hook executável
+chmod +x .git/hooks/pre-commit
+```
+
+##### Como Funciona
+
+O hook executa automaticamente ao fazer `git commit` e:
+1. Formata todo o código da pasta `src/` com Black
+2. Verifica os tipos com MyPy
+3. Se houver erros de tipo, o commit é cancelado
+
+#### Comandos Manuais
+
+Você também pode executar as ferramentas manualmente:
+
+```bash
+# Formatação com Black
+poetry run black src
+
+# Verificação de tipos com MyPy
+poetry run mypy src
+
+# Executar testes
+poetry run pytest
+```
+
+#### Bypass do Pre-commit Hook
+
+Se necessário, você pode pular o hook temporariamente:
+
+```bash
+git commit --no-verify
+```
+
 ## Arquitetura
 
 O projeto segue os princípios de Clean Architecture
