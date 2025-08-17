@@ -114,8 +114,7 @@ O projeto também possui um workflow do GitHub Actions que executa verificaçõe
 
 ## Arquitetura
 
-Este projeto implementa **Clean Architecture** seguindo os princípios de **Domain-Driven Design (DDD)** e **SOLID**. A estrutura foi cuidadosamente organizadas para facilitar manutenibilidade, testabilidade e extensibilidade em projetos de ML.
-
+Este projeto implementa **Clean Architecture** seguindo os princípios de **Domain-Driven Design (DDD)** e **SOLID**.
 ### Estrutura de Pastas
 
 ```
@@ -213,7 +212,7 @@ docker-compose up --build
 # 2. Baixar o modelo manualmente no container (recomendado para conexão limitada)
 docker exec -it ollama ollama pull tinyllama
 
-# 3. A API já estará pronta para uso!
+# 3. A API já estará pronta para uso no término do dowload!
 ```
 
 **Alternativa**: Deixar a API baixar automaticamente na primeira requisição, mas pode demorar mais com conexão lenta.
@@ -234,8 +233,7 @@ exit
 ```
 
 **Observações importantes:**
-- Esta não é a abordagem mais eficiente para produção
-- Em produção, o modelo deveria estar pré-carregado na imagem
+- Esta não é a abordagem que segui de dowload do modelo não é a mais eficiente para produção. Em produção, o modelo deveria estar pré-carregado na imagem
 - O modelo fica persistido no volume Docker entre reinicializações
 - Após o primeiro download, não é necessário baixar novamente, pois ele fica salvo no volume
 - Foi utilizada a versão Python 3.12-slim. Em produção, seria recomendável usar uma versão Alpine por ser menor e mais segura, porém devido às restrições de rede que eu tinha para build, não foi possível alterar.
