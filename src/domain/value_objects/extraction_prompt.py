@@ -27,7 +27,8 @@ class ExtractionPrompt:
           "tipo_incidente": "Server failure",
           "impacto": "Billing system unavailable for 2 hours"
         }}
-
+        
+        Based on this, process the below now
         Incident text: {incident_text}
         JSON response:
         """
