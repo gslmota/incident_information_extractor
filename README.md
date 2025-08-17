@@ -114,7 +114,40 @@ O projeto também possui um workflow do GitHub Actions que executa verificaçõe
 
 ## Arquitetura
 
-O projeto segue os princípios de Clean Architecture
+Este projeto implementa **Clean Architecture** seguindo os princípios de **Domain-Driven Design (DDD)** e **SOLID**. A estrutura foi cuidadosamente organizadas para facilitar manutenibilidade, testabilidade e extensibilidade em projetos de ML.
+
+### Estrutura de Pastas
+
+```
+src/
+├── domain/                          # Camada de Domínio (Regras de Negócio)
+│   ├── entities/                    # Entidades principais do domínio
+│   │   ├── incident.py             # IncidentInfo - dados estruturados do incidente
+│   │   └── incident_text.py        # IncidentText - texto bruto + validações
+│   ├── value_objects/               # Objetos de valor imutáveis
+│   │   ├── extraction_prompt.py    # Templates de prompt para LLM
+│   │   └── llm_response.py         # Wrapper para resposta do LLM
+│   └── exceptions.py               # Exceções específicas do domínio
+├── application/                     # Camada de Aplicação (Casos de Uso)
+│   ├── interfaces/                  # Contratos abstratos (Dependency Inversion)
+│   │   ├── llm_service.py          # Interface para serviços LLM
+│   │   └── text_processing.py      # Interfaces para processamento de texto
+│   └── use_cases/                   # Workflows de negócio
+│       └── extract_incident_info.py # Caso de uso principal de extração
+├── infrastructure/                  # Camada de Infraestrutura (Implementações)
+│   ├── models/                     # Serviços de Machine Learning
+│   │   └── ollama_service.py       # Implementação concreta do Ollama
+│   ├── processors/                 # Pipeline de processamento de texto
+│   │   ├── text_preprocessor.py    # Limpeza e normalização de entrada
+│   │   └── text_postprocessor.py   # Normalização e estruturação de saída
+│   └── parsers/                    # Extração e parsing de dados
+│       └── json_parser.py          # Parser para respostas JSON do LLM
+└── presentation/                    # Camada de Apresentação (Interface Externa)
+    └── api/                        # API REST
+        ├── main.py                 # FastAPI application e rotas
+        └── schemas.py              # Request/Response schemas (Pydantic)
+```
+
 
 ## Como Executar o Projeto
 
@@ -145,8 +178,11 @@ Para rodar o projeto localmente, você precisa:
 
 3. **Executar a API:**
    ```bash
-   # Rodar via comando
-   poetry run uvicorn src.presentation.api:app --reload --host localhost --port 8000
+   # Rodar via comando atualizado
+   poetry run uvicorn src.presentation.api.main:app --reload --host localhost --port 8000
+   
+   # Ou usar o script de debug otimizado
+   python debug_scripts/run_local.py
    ```
    
    Ou usar o **debug do VS Code** com a configuração de launch.json
@@ -204,6 +240,23 @@ exit
 - Após o primeiro download, não é necessário baixar novamente, pois ele fica salvo no volume
 - Foi utilizada a versão Python 3.12-slim. Em produção, seria recomendável usar uma versão Alpine por ser menor e mais segura, porém devido às restrições de rede que eu tinha para build, não foi possível alterar.
 
+### Executando Testes
+
+O projeto possui uma suite completa de testes unitários e de integração:
+
+```bash
+
+# Executar todos os testes
+pytest tests/ -v
+
+# Executar apenas testes unitários
+pytest tests/unit/ -v
+
+# Executar apenas testes de integração  
+pytest tests/integration/ -v
+
+```
+
 ### Testando a API
 
 ```bash
@@ -215,3 +268,4 @@ curl -X POST "http://localhost:8000/extract" \
      -H "Content-Type: application/json" \
      -d '{"text": "Ocorreu um incidente ontem às 14:30 no servidor de produção. O sistema ficou indisponível por 2 horas devido a falha no banco de dados."}'
 ```
+

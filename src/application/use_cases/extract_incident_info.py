@@ -1,7 +1,7 @@
-from ..domain.entities import IncidentInfo, IncidentText
-from ..domain.exceptions import InvalidJsonResponseError
-from ..domain.value_objects import ExtractionPrompt
-from .interfaces import (
+from ...domain.entities import IncidentInfo, IncidentText
+from ...domain.exceptions import InvalidJsonResponseError
+from ...domain.value_objects import ExtractionPrompt
+from ..interfaces import (
     JsonParserInterface,
     LLMServiceInterface,
     TextPostprocessorInterface,

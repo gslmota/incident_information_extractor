@@ -1,8 +1,8 @@
-import pytest
-from unittest.mock import AsyncMock, patch, Mock
+from unittest.mock import AsyncMock, patch
 from fastapi.testclient import TestClient
 
-from src.presentation.api import app, get_use_case
+from src.presentation.api import app
+from src.presentation.api.main import get_use_case
 
 
 class TestIncidentExtractorAPI:
@@ -48,7 +48,7 @@ class TestIncidentExtractorAPI:
             app.dependency_overrides.clear()
 
     def test_extract_incident_info_empty_text(self) -> None:
-        with patch("src.presentation.api.get_use_case"):
+        with patch("src.presentation.api.main.get_use_case"):
             client = TestClient(app)
             request_data = {"text": ""}
             
@@ -57,7 +57,7 @@ class TestIncidentExtractorAPI:
             assert response.status_code == 422
 
     def test_extract_incident_info_missing_text(self) -> None:
-        with patch("src.presentation.api.get_use_case"):
+        with patch("src.presentation.api.main.get_use_case"):
             client = TestClient(app)
             response = client.post("/extract", json={})
             

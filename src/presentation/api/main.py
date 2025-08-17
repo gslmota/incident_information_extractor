@@ -6,18 +6,17 @@ import structlog
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from ..application.use_cases import ExtractIncidentInfoUseCase
-from ..domain.entities import IncidentText
-from ..domain.exceptions import (
+from ...application.use_cases import ExtractIncidentInfoUseCase
+from ...domain.entities import IncidentText
+from ...domain.exceptions import (
     IncidentExtractorError,
     InvalidJsonResponseError,
     LLMServiceError,
     TextPreprocessingError,
 )
-from ..infrastructure.json_parser import JsonParser
-from ..infrastructure.ollama_service import OllamaService
-from ..infrastructure.text_postprocessor import TextPostprocessor
-from ..infrastructure.text_preprocessor import TextPreprocessor
+from ...infrastructure.parsers import JsonParser
+from ...infrastructure.models import OllamaService
+from ...infrastructure.processors import TextPostprocessor, TextPreprocessor
 from .schemas import ErrorResponse, IncidentRequest, IncidentResponse
 
 logger = structlog.get_logger()

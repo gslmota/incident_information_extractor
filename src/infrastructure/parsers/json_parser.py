@@ -2,8 +2,8 @@ import json
 import re
 from typing import Any, Dict, cast
 
-from ..application.interfaces import JsonParserInterface
-from ..domain.exceptions import InvalidJsonResponseError
+from ...application.interfaces import JsonParserInterface
+from ...domain.exceptions import InvalidJsonResponseError
 
 
 class JsonParser(JsonParserInterface):
