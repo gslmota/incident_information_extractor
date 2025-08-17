@@ -110,7 +110,7 @@ Se necessário, você pode pular o hook temporariamente:
 git commit --no-verify
 ```
 
-O projeto também possui um workflow do GitHub Actions que executa verificações automáticas de código. Atualmente, apenas executa linting e testes, sem configuração para validar pull requests.
+O projeto também possui um workflow do GitHub Actions que executa verificações automáticas de código. Atualmente, executa linting, type check e testes, com configuração para validar pull requests com estas regras antes do merge.
 
 ## Arquitetura
 
@@ -249,15 +249,19 @@ O projeto possui uma suite completa de testes unitários e de integração:
 # Executar todos os testes
 pytest tests/ -v
 
-# Executar apenas testes unitários
+# Executar apenas unitários
 pytest tests/unit/ -v
 
-# Executar apenas testes de integração  
+# Executar apenas de integração  
 pytest tests/integration/ -v
 
 ```
 
 ### Testando a API
+
+Vale ressaltar que, neste teste, o objetivo principal não era avaliar a qualidade final da saída, mas sim a capacidade de integração, etc.
+Devido ao porte reduzido do modelo utilizado, foi necessário construir prompt contendo exemplos de uso para direcionar a resposta.
+Em determinadas situações, o modelo pode retornar o JSON de exemplo em vez da saída esperada (alucinação). Entretanto, ao repetir a requisição, o processamento tende a ser realizado corretamente.
 
 ```bash
 # Teste de saúde
@@ -266,6 +270,6 @@ curl http://localhost:8000/health
 # Exemplo de extração de incidente
 curl -X POST "http://localhost:8000/extract" \
      -H "Content-Type: application/json" \
-     -d '{"text": "Ocorreu um incidente ontem às 14:30 no servidor de produção. O sistema ficou indisponível por 2 horas devido a falha no banco de dados."}'
+     -d '{"text": "Anteontem, às 5h, no escritório de Pernambuco, houve uma falha no servidor principal que afetou o sistema de notas por cinco horas."}'
 ```
 
