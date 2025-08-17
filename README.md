@@ -150,6 +150,13 @@ src/
 
 ## Como Executar o Projeto
 
+Para executar o projeto faça um clone e siga as instruções abaixo.
+
+```bash
+git clone https://github.com/gslmota/incident_information_extractor.git
+cd incident_information_extractor
+```
+
 ### Execução Local (Desenvolvimento)
 
 Para rodar o projeto localmente, você precisa:
